@@ -1,9 +1,9 @@
 getpod() {
-  local namespace=$1
-  local name=$2
+  local name=$1
+  local namespace=$2
 
   if [[ -z "$namespace" || -z "$name" ]]; then
-    echo "Usage: getpod <namespace> <name-fragment>"
+    echo "Usage: getpod <name-match> <namespace>"
     return 1
   fi
 
@@ -14,8 +14,8 @@ getpod() {
 }
 
 tailpod() {
-  local namespace=$1
-  local name=$2
-  local pod=`getpod $namespace $name`
+  local name=$1
+  local namespace=$2
+  local pod=`getpod $name $namespace`
   kubectl logs --follow $pod -n $namespace | jq --raw-input 'fromjson? | .time |= strftime("%Y-%m-%d %H:%M:%S")'
 }
