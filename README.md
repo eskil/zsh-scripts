@@ -19,5 +19,14 @@ set_tab ERC green
 
 Add `kubefile` to `POWERLEVEL9K_LEFT_PROMPT_ELEMENTS` in `~/.p10k.zsh` to get the current cluster in your prompt.
 
-See also
-* https://github.com/eskil/zsh-iterm2-gitrepo-tabtitlecolor
+
+## `kubectls`
+
+Utilities for k8s
+
+* `getpod namespace podname` gets the first pod named `podname.*` in `namespace`
+* `tailpod namespace podname` tails through jq logs from `getpod ...`
+
+## See also
+
+* https://github.com/eskil/zsh-iterm2-gitrepo-tabtitlecolor, autoset iterm2 tab & color by git repo name
