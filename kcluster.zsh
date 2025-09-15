@@ -2,12 +2,56 @@
 # Requires fzf is installed
 # brew install fzf
 #
+
+kubefile_cc_segment() {
+  if [[ -z "$KUBECONFIG" ]]; then
+    return
+  fi
+
+  local name="${KUBECONFIG:t:r}"
+  local color_reset="\033[0m"
+  local color
+
+  case "$name" in
+      *prod*|*Prod*|*PROD*)
+          color="\033[31m" 
+          ;;
+      *stag*|*Stag*|*STAG*)
+          color="\033[33m" 
+          ;;
+      *dev*|*Dev*|*DEV*)
+          color="\033[32m"
+          ;;
+      *)
+          color="\033[36m"
+          ;;
+  esac
+
+  printf "%b%s%b" "$color" "$name" "$color_reset"
+}
+
 kcluster() {
   local kube_dir="$HOME/.kube"
   local selected
 
-  # Find *.yaml files in ~/.kube and fuzzy select one
-  selected=$(find "$kube_dir" -maxdepth 1 -type f -name '*.yaml' | fzf --prompt="Select KUBECONFIG: " --height=40% --reverse)
+  selected=$(
+    find "$kube_dir" -maxdepth 1 -type f -name '*.yaml' \
+      | while read -r f; do
+          KUBECONFIG="$f"
+          # Print the color coded filename segment tab separated from the full filename
+          printf "%s\t%s\n" "$(kubefile_cc_segment)" "$f"
+	  # Right pad doesn't make fzf market bigger, since it strips
+	  # printf "%-40s\t%s\n" "$(kubefile_segment)" "$f"
+    done \
+      | fzf --ansi \
+            --with-nth=1 \
+            --delimiter='\t' \
+            --prompt="Select KUBECONFIG: " \
+            --height=40% \
+            --reverse \
+            --color='pointer:161,marker:168' \
+      | cut -f2
+  )
 
   if [[ -z "$selected" ]]; then
     echo "No file selected."
@@ -16,36 +60,10 @@ kcluster() {
 
   export KUBECONFIG="$selected"
   echo "KUBECONFIG set to: $KUBECONFIG"
+
+  # Set iTerm2 badge + tab title
   printf "\033]1337;SetBadgeFormat=%s\007"  "$(echo "${KUBECONFIG:t:r}" | base64)"
-  set_tab ${KUBECONFIG:t:r}
-}
-
-# Show kubeconfig file name without path/extension, color-coded
-kubefile_segment() {
-  if [[ -z "$KUBECONFIG" ]]; then
-    return
-  fi
-
-  local name="${KUBECONFIG:t:r}"
-  local color
-
-  case "$name" in
-      *prod*|*Prod*|*PROD*)
-	  color="%F{brightred}%K{red}"
-	  ;;
-      *stag*|*Stag*|*STAG*)
-	  color="%F{yellow}"
-	  ;;
-      *dev*|*Dev*|*DEV*)
-	  color="%F{green}" 
-	  ;;
-      *)
-	  color="%F{cyan}"  
-	  ;;
-  esac
-  
-  # Print with color and reset
-  print -n "${color}${name}%f"
+  set_tab "${KUBECONFIG:t:r}"
 }
 
 # Custom kubeconfig segment for oh-my-zsh/p10k
