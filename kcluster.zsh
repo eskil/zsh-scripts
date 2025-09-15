@@ -17,6 +17,7 @@ kcluster() {
   export KUBECONFIG="$selected"
   echo "KUBECONFIG set to: $KUBECONFIG"
   printf "\033]1337;SetBadgeFormat=%s\007"  "$(echo "${KUBECONFIG:t:r}" | base64)"
+  set_tab ${KUBECONFIG:t:r}
 }
 
 # Show kubeconfig file name without path/extension, color-coded
@@ -30,16 +31,16 @@ kubefile_segment() {
 
   case "$name" in
       *prod*|*Prod*|*PROD*)
-	  color="%F{red}"       # red for prod
+	  color="%F{brightred}%K{red}"
 	  ;;
       *stag*|*Stag*|*STAG*)
-	  color="%F{yellow}"    # yellow for staging
+	  color="%F{yellow}"
 	  ;;
       *dev*|*Dev*|*DEV*)
-	  color="%F{green}"     # green for dev
+	  color="%F{green}" 
 	  ;;
       *)
-	  color="%F{cyan}"      # cyan for anything else
+	  color="%F{cyan}"  
 	  ;;
   esac
   
@@ -53,11 +54,27 @@ function prompt_kubefile() {
     local name="${KUBECONFIG:t:r}"
     local color
     case "$name" in
-      *prod*|*Prod*|*PROD*) color=red ;;
-      *stag*|*Stag*|*STAG*) color=yellow ;;
-      *dev*|*Dev*|*DEV*)    color=green ;;
-      *)                    color=cyan ;;
+	*prod*|*Prod*|*PROD*)
+	    fg=brightred
+	    bg=red
+	    text="$name"$' %{\e[5m%}☠️%{\e[25m%}%f%k'
+	    ;;
+	*stag*|*Stag*|*STAG*)
+	    fg=yellow
+	    bg=black
+            text="$name"
+	    ;;
+	*dev*|*Dev*|*DEV*)
+	    fg=green
+	    bg=black
+            text="$name"
+	    ;;
+	*)
+	    fg=cyan
+	    bg=black
+            text="$name"
+	    ;;
     esac
-    p10k segment -f "$color" -t "$name"
+    p10k segment -f "$fg" -b "$bg" -t "$text"
   fi
 }
