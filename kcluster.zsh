@@ -62,7 +62,7 @@ kcluster() {
   echo "KUBECONFIG set to: $KUBECONFIG"
 
   # Set iTerm2 badge + tab title
-  printf "\033]1337;SetBadgeFormat=%s\007"  "$(echo "${KUBECONFIG:t:r}" | base64)"
+  set_badge "${KUBECONFIG:t:r}"
   set_tab "${KUBECONFIG:t:r}"
 }
 
