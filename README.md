@@ -2,16 +2,24 @@
 
 Collection of various zsh scripts/commands I use. These can be dumped into `$ZSH_CUSTOM`.
 
-## `set_tab`
+## `set_tab.zsh`
 
 Function to change iterm2 tab name/color. Picks a consistent color from the given name if no color name is passed.
 
-```
+```zsh
 set_tab ERC
 set_tab ERC green
 ```
 
-## `kcluster`
+## `set_badge.zsh`
+
+Function to change iterm2 badge.
+
+```zsh
+set_badge PROD
+```
+
+## `kcluster.zsh`
 
 * fuzzy picker to pick a kubeconfig file from `~/.kube`.
 * changes iterm2 badge to the cluster name
