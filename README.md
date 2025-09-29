@@ -34,7 +34,7 @@ Add `kubefile` to `POWERLEVEL9K_LEFT_PROMPT_ELEMENTS` in `~/.p10k.zsh` to get th
 
 ## `kubectls`
 
-Utilities for k8s
+Mediocre utilities for k8s. I wouldn't touch these.
 
 * `getpod namespace podname` gets the first pod named `podname.*` in `namespace`
 * `tailpod namespace podname` tails through jq logs from `getpod ...`
