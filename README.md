@@ -34,11 +34,15 @@ Add `kubefile` to `POWERLEVEL9K_LEFT_PROMPT_ELEMENTS` in `~/.p10k.zsh` to get th
    typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
      # =========================[ Line #1 ]=========================
      os_icon                 # os identifier
-+    kubefile                # eskil: custom/kcluster controlled kubeconfig
++    kubefile                # github/eskil/zsh-scripts: custom/kcluster controlled kubeconfig
      dir                     # current directory
      vcs                     # git status
      # =========================[ Line #2 ]=========================
 ```
+
+For the blinking ☠️ in the prompt, you have to enable blinking text in iterm2
+<img width="800" height="600" alt="CleanShot 2025-09-29 at 10 28 56@2x" src="https://github.com/user-attachments/assets/f9da89da-496d-44d5-a2f2-1fa735379214" />
+
 
 ## `kubectls`
 
