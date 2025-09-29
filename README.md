@@ -19,6 +19,18 @@ set_tab ERC green
 
 Add `kubefile` to `POWERLEVEL9K_LEFT_PROMPT_ELEMENTS` in `~/.p10k.zsh` to get the current cluster in your prompt.
 
+```diff
+--- ~/.p10k.zsh	2025-08-13 12:01:31
++++ ~/.p10k.zsh	2025-08-13 12:01:31
+@@ -33,6 +33,7 @@
+   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
+     # =========================[ Line #1 ]=========================
+     os_icon                 # os identifier
++    kubefile                # eskil: custom/kcluster controlled kubeconfig
+     dir                     # current directory
+     vcs                     # git status
+     # =========================[ Line #2 ]=========================
+```
 
 ## `kubectls`
 
