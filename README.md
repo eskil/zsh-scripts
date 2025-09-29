@@ -40,6 +40,12 @@ Add `kubefile` to `POWERLEVEL9K_LEFT_PROMPT_ELEMENTS` in `~/.p10k.zsh` to get th
      # =========================[ Line #2 ]=========================
 ```
 
+Here's a shot of the `kcluster` command, prompt and badge;
+
+
+![CleanShot 2025-09-29 at 10 46 58](https://github.com/user-attachments/assets/76e77199-e867-4c87-92a6-635781c9a706)
+
+
 For the blinking ☠️ in the prompt, you have to enable blinking text in iterm2
 <img width="800" height="600" alt="CleanShot 2025-09-29 at 10 28 56@2x" src="https://github.com/user-attachments/assets/f9da89da-496d-44d5-a2f2-1fa735379214" />
 
